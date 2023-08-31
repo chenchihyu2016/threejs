@@ -19,7 +19,7 @@ export default defineConfig({
     plugins: [
         vue(),
         AutoImport({
-            include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
+            include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/],
             imports: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
             dirs: ['./src/composables', './src/composables/**', './src/stores'],
             dts: true,
@@ -27,7 +27,7 @@ export default defineConfig({
         }),
         Components({ dts: true })
     ],
-    server: { port: 3000 },
+    server: { port: 5000 },
     resolve: {
         alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }]
     }
