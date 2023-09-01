@@ -11,6 +11,8 @@
 </template>
 
 <style scoped lang="scss">
+    @import '@/scss/main.scss';
+
     main {
         width: 100dvw;
         height: 100dvh;

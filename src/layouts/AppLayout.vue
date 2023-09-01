@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+    const { user } = storeToRefs(useGlobalStore());
+</script>
 
 <template>
     <div class="app-layout">

@@ -6,7 +6,7 @@
 
 <template>
     <nav v-once>
-        <img class="nav-left" src="" title="profile" />
+        <span class="material-icons">face</span>
         <div class="nav-right">
             <router-link v-for="link in links" :to="{ name: link.name }">{{ link.name }}</router-link>
             <br />
