@@ -1,12 +1,24 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import HelloWorldVue from '../components/HelloWorld.vue';
+import AppLayout from '../layouts/AppLayout.vue';
 
 const rootPath = import.meta.env.PROD ? '/' : '/';
 const routes: Array<RouteRecordRaw> = [
     {
         name: rootPath,
         path: '/',
-        component: HelloWorldVue
+        component: AppLayout,
+        children: [
+            {
+                name: 'Profile',
+                path: '',
+                component: () => import('../pages/profile/Profile.vue')
+            },
+            {
+                name: 'Playground',
+                path: 'playground',
+                component: () => import('../pages/playground/Playground.vue')
+            }
+        ]
     }
 ];
 

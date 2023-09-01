@@ -1,0 +1,7 @@
+1. font-awesome icons
+2. pinia
+3. left quick search
+4. threejs animations
+5. intersection observer -> lazy loading
+6. v-src animation
+8.

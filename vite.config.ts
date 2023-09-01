@@ -27,6 +27,16 @@ export default defineConfig({
         }),
         Components({ dts: true })
     ],
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: `
+              @import "./src/scss/_variables.scss";
+              @import "./src/scss/_animations.scss";
+            `
+            }
+        }
+    },
     server: { port: 5000 },
     resolve: {
         alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }]
