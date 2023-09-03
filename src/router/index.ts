@@ -10,12 +10,12 @@ const routes: Array<RouteRecordRaw> = [
         children: [
             {
                 name: 'Profile',
-                path: '',
+                path: 'profile',
                 component: () => import('../pages/profile/Profile.vue')
             },
             {
                 name: 'Playground',
-                path: 'playground',
+                path: '',
                 component: () => import('../pages/playground/Playground.vue')
             }
         ]

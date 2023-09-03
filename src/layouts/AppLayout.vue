@@ -4,7 +4,7 @@
 
 <template>
     <div class="app-layout">
-        <app-nav />
+        <!-- <app-nav /> -->
 
         <router-view v-slot="{ Component, route }">
             <transition name="fade" mode="out-in">
