@@ -12,8 +12,9 @@ export function useScene(el: { canvasRef: Ref<HTMLCanvasElement | undefined> }) 
 
     onMounted(() => {
         renderer = new WebGLRenderer({ canvas: el.canvasRef.value, antialias: true });
+        renderer.shadowMap.enabled = true;
 
-        controls = new OrbitControls(camera, renderer.domElement);
+        controls = new OrbitControls(camera, el.canvasRef.value);
         controls.enableDamping = true;
 
         updateRenderer();
