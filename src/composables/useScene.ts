@@ -1,4 +1,4 @@
-import { WebGLRenderer, Scene } from 'three';
+import { WebGLRenderer, Scene, PCFSoftShadowMap } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export function useScene(el: { canvasRef: Ref<HTMLCanvasElement | undefined> }) {
@@ -13,9 +13,11 @@ export function useScene(el: { canvasRef: Ref<HTMLCanvasElement | undefined> }) 
     onMounted(() => {
         renderer = new WebGLRenderer({ canvas: el.canvasRef.value, antialias: true });
         renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = PCFSoftShadowMap;
 
         controls = new OrbitControls(camera, el.canvasRef.value);
         controls.enableDamping = true;
+        controls.update();
 
         updateRenderer();
         loop();

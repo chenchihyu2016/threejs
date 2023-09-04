@@ -20,12 +20,6 @@
     .app-layout {
         height: 100%;
 
-        & > nav {
-            border-bottom: $primary-color 1px solid;
-            height: $navbar-height;
-            width: 100%;
-        }
-
         &__content {
             width: 100%;
             height: 100%;

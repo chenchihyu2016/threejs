@@ -10,7 +10,7 @@
     </main>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
     @import '@/scss/main.scss';
 
     main {

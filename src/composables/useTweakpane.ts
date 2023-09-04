@@ -7,6 +7,7 @@ let fpsGraph: any;
 export function useTweakpane() {
     pane = new Pane();
     pane.registerPlugin(EssentialPlugin);
+    // @ts-ignore
     fpsGraph = pane.addBlade({
         view: 'fpsgraph',
         label: 'fpsgraph'
