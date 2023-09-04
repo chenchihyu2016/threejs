@@ -19,11 +19,16 @@
         FogExp2,
         TextureLoader,
         CubeTexture,
-        CubeTextureLoader
+        CubeTextureLoader,
+        Vector2,
+        Raycaster,
+        ShaderMaterial
     } from 'three';
     import { GUI } from 'dat.gui';
-    import nebula from '@/assets/images/nebula.webp';
-    import stars from '@/assets/images/stars.webp';
+    import nebula from '@/assets/images/nebula.jpg';
+    import stars from '@/assets/images/stars.jpg';
+    import { vShader, fShader } from '../../assets/shaders/shader';
+    import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
     const color = '#e3e3a3';
     const canvasRef = ref<HTMLCanvasElement>();
@@ -70,6 +75,7 @@
         boxAnimate(time);
         shpereAnimate(time);
         // spotLightAnimate();
+        rayCasterAnimate();
 
         renderer?.render(scene, camera);
     }
@@ -126,10 +132,63 @@
     // scene.fog = new FogExp2(0xffffff, 0.01);
 
     // // stars and nebulas
-    // const textureLoader = new TextureLoader();
-    // scene.background = textureLoader.load(stars);
+    const textureLoader = new TextureLoader();
+    scene.background = textureLoader.load(stars);
     const cubeTextureLoader = new CubeTextureLoader();
-    scene.background = cubeTextureLoader.load([stars, stars, stars, stars, stars, stars]);
+    scene.background = cubeTextureLoader.load([nebula, nebula, stars, stars, stars, stars]);
+
+    // box2
+    const box2 = new Mesh(new BoxGeometry(4, 4, 4), new MeshStandardMaterial({ map: textureLoader.load(nebula) }));
+    box2.position.set(-5, 15, 5);
+    box2.castShadow = true;
+    box2.name = 'box2';
+    scene.add(box2);
+
+    // select handler and ray caster
+    const mousePosition = new Vector2();
+
+    useEventListener('mousemove', function (e) {
+        mousePosition.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mousePosition.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    const rayCaster = new Raycaster();
+
+    function rayCasterAnimate() {
+        rayCaster.setFromCamera(mousePosition, camera);
+        const intersects = rayCaster.intersectObjects(scene.children);
+
+        for (const intersect of intersects) {
+            if (intersect.object.name === 'box2') {
+                intersect.object.rotation.x += 0.01;
+                intersect.object.rotation.y += 0.01;
+            }
+        }
+    }
+
+    // shader
+    const sphere2 = new Mesh(
+        new SphereGeometry(4),
+        new ShaderMaterial({ vertexShader: vShader, fragmentShader: fShader })
+    );
+    scene.add(sphere2);
+    sphere2.position.set(-5, 10, 10);
+
+    // import glb
+    const monkeyUrl = new URL('@/assets/glbs/monkey.glb', import.meta.url);
+    const assetsLoader = new GLTFLoader();
+    assetsLoader.load(
+        monkeyUrl.href,
+        function (gltf) {
+            const model = gltf.scene;
+            scene.add(model);
+            model.position.set(-12, 4, 10);
+        },
+        undefined,
+        function (error) {
+            console.log(error);
+        }
+    );
 
     // gridHelper
     const gridHelper = new GridHelper(30);
