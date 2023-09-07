@@ -86,7 +86,7 @@
     const ambientLight = new AmbientLight(0xffffff);
     scene.add(ambientLight);
 
-    // // directional light
+    // directional light
     const directionalLight = new DirectionalLight(0xffffff, 0.8);
 
     scene.add(directionalLight);
@@ -156,6 +156,7 @@
 
     function rayCasterAnimate() {
         rayCaster.setFromCamera(mousePosition, camera);
+
         const intersects = rayCaster.intersectObjects(scene.children);
 
         for (const intersect of intersects) {
